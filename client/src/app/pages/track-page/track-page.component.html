@@ -1,30 +1,35 @@
 <div class="row">
 	@if(track) {
 		<div class="col-sm-6 col-12">
-			<!--TODO: populate with track name-->
-			<h1>???</h1>
-			<p>
-				<!--TODO: link to album page, display album name-->
-				Track on <a>???</a>
-			</p>
-			<div>
-				<!--TODO: loop over track's artists-->
+			<!--track name-->
+			<h1>{{track.name}}</h1>
+			@if(track.album) {
 				<p>
-					<!--TODO: link to artist page, display artist name-->
-					Artist: <a>???</a>
+					<!--link to the local album page, display album name-->
+					Track on <a [href]="'/album/' + track.album.id">{{track.album.name}}</a>
 				</p>
+			}
+			<div>
+				<!--one line per artist on the track-->
+				@for(artist of track.artists; track $index) {
+					<p>
+						<!--link to the local artist page, display artist name-->
+						Artist: <a [href]="'/artist/' + artist.id">{{artist.name}}</a>
+					</p>
+				}
 			</div>
 			<p>
-				<!--TODO: populate with track duration-->
-				Duration: ???
+				<!--track duration-->
+				Duration: {{track.durationStr}}
 			</p>
 			<p>
-				<!--TODO: link to track page on spotify, display track name-->
-				<a class="btn btn-light" role="button" target="_blank">Open ??? on Spotify</a>
+				<!--link to track page on spotify, display track name-->
+				<a class="btn btn-light" role="button" target="_blank" [href]="track.url">Open {{track.name}} on Spotify</a>
 			</p>
 		</div>
 		<div class="col-sm-6 col-12">
-			<!--TODO: create a thermometer component with the track's popularity-->
+			<!--thermometer with the track's popularity-->
+			<app-thermometer [popularity]="track.popularity"></app-thermometer>
 		</div>
 	}
 </div>

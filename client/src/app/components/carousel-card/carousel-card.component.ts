@@ -15,4 +15,10 @@ export class CarouselCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  //The local page for this resource. The routes in app-routing.module.ts are
+  //artist/:id, album/:id, and track/:id, which match each resource's category.
+  get localUrl():string {
+    return '/' + this.resource.category + '/' + this.resource.id;
+  }
+
 }

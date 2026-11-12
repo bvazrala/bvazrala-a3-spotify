@@ -1,10 +1,10 @@
-<!--TODO: Define click callback to load about me information-->
-<button class="btn btn-light">Load info about me</button>
-<!--TODO: replace ??? to bind to name-->
-<h3>Logged in user: ???</h3>
-<!--TODO: bind img src's to profile_pic-->
-<img src="assets/unknown.jpg" class="profile">
+<!--Clicking the button loads the about me information-->
+<button class="btn btn-light" (click)="loadAboutMe()">Load info about me</button>
+<!--Show ??? until the name has been loaded-->
+<h3>Logged in user: {{name ? name : '???'}}</h3>
+<!--img src is bound to profile_pic-->
+<img [src]="profile_pic" class="profile">
 <p>
-	<!--TODO: bind link's href to profile_link-->
-	<a class="btn btn-light" target="_blank">Open profile on Spotify</a>	
+	<!--link's href is bound to profile_link (attr.href leaves the link empty until the profile has loaded)-->
+	<a class="btn btn-light" target="_blank" [attr.href]="profile_link">Open profile on Spotify</a>	
 </p>

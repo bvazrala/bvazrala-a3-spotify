@@ -8,7 +8,10 @@ import { Popularity } from 'src/app/data/popularity';
     standalone: false
 })
 export class ThermometerComponent implements OnInit {
-  //TODO: define Input fields and bind them to the template.
+  //The popularity to display (holds the percent and the color for the bar)
+  @Input() popularity:Popularity;
+  //The text shown in front of the percent
+  @Input() label:string = 'Popularity';
 
   constructor() { }
 

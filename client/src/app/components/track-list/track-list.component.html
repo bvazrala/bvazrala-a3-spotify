@@ -5,28 +5,45 @@
 				<th scope="col">#</th>
 				<th scope="col">Track</th>
 				<th scope="col">Duration</th>
-				<!--TODO: Use @if to hide if hideArtist is true-->
-				<th scope="col">Primary Artist</th>
-				<!--TODO: Use @if to hide if hideAlbum is true-->
-				<th scope="col">Album</th>
+				<!--Hidden if hideArtist is true-->
+				@if(!hideArtist) {
+					<th scope="col">Primary Artist</th>
+				}
+				<!--Hidden if hideAlbum is true-->
+				@if(!hideAlbum) {
+					<th scope="col">Album</th>
+				}
 			</tr>
 		</thead>
 		<tbody>
-			<!--TODO: Use @for to loop over tracks-->
-			<tr>
-				<!--TODO: Populate with row index (start with 1!)-->
-				<td>???</td>
-				<td>
-					<!--TODO: link to the endpoint for that track, display the track's name-->
-					<a>???</a>
-				</td>
-				<!--TODO: display the track's duration-->
-				<td>???</td>
-				<!--TODO: Use @if to hide if hideArtist is true; link to the first artist's endpoint and display the first artist's name-->
-				<td><a></a></td>
-				<!--TODO: Use @if to hide if hideAlbum is true; link to the album's endpoint and display the album's name-->
-				<td><a></a></td>
-			</tr>
+			<!--One row per track. $index starts at 0, so add 1 for the row number.-->
+			@for(track of tracks; track $index; let i = $index) {
+				<tr>
+					<td>{{i + 1}}</td>
+					<td>
+						<!--link to the local page for that track, display the track's name-->
+						<a [href]="'/track/' + track.id">{{track.name}}</a>
+					</td>
+					<!--the track's duration-->
+					<td>{{track.durationStr}}</td>
+					<!--Hidden if hideArtist is true; link to the first artist's local page and display the first artist's name-->
+					@if(!hideArtist) {
+						<td>
+							@if(track.artists && track.artists.length > 0) {
+								<a [href]="'/artist/' + track.artists[0].id">{{track.artists[0].name}}</a>
+							}
+						</td>
+					}
+					<!--Hidden if hideAlbum is true; link to the album's local page and display the album's name-->
+					@if(!hideAlbum) {
+						<td>
+							@if(track.album) {
+								<a [href]="'/album/' + track.album.id">{{track.album.name}}</a>
+							}
+						</td>
+					}
+				</tr>
+			}
 		</tbody>
 	</table>
 }
